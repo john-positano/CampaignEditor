@@ -1,0 +1,468 @@
+<html>
+	<head>
+		<title>Campaign Manager</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:700" rel="stylesheet">
+	
+	<style>
+		#tablehold, #tablehold2 {
+			width: 100%;
+		}
+
+		table thead th, table tbody tr td {
+			text-align: center;
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+		
+		table {
+			width: 100%;	
+		}
+
+		li.active {
+			box-shadow: 0 2.5px 0px white;
+		}
+
+		#accordion {
+			display: none;
+		}
+
+		#accordionmini {
+			display: none;
+		}
+	</style>
+
+	</head>
+	<body>
+	
+	<div class="container-fluid">
+
+	<div class="row" style="box-shadow: 0 2px 1px black; text-shadow: 0 0 2px black;" noclick="y">
+	
+	<div class="col-xs-6" style="background-color: CornflowerBlue; height: 80px; font-family: 'Roboto Mono', monospace;" noclick="y">
+
+	<h1 style="color: white; font-size: 50px; vertical-align: middle; margin: 12px; letter-spacing: -2px;" noclick="y">Dash Editor</h1>
+
+	</div>
+
+	<div class="col-xs-6" style="background-color: CornflowerBlue; height: 80px; font-family: 'Roboto Mono', monospace;" noclick="y">
+
+
+
+	</div>
+
+	</div>
+
+	<div class="row" noclick="y">
+
+	<ul class="nav nav-tabs" style="box-shadow: 0 1px 1px black; z-index: 100;" noclick="y">
+  		<li class="active" oncontextmenu="stopit(event)"><a href="#tablehold"  data-toggle="tab" oncontextmenu="stopit(event)" noclick="y">Tracker View</a></li>
+  		<li oncontextmenu="stopit(event)"><a href="#tablehold2" data-toggle="tab"  oncontextmenu="stopit(event)" noclick="y">Schedule View</a></li>
+	</ul>
+<div class="tab-content clearfix" style="padding-top: 2px;" noclick="y">
+	<div id="tablehold" class="tab-pane active" style="height: 800px; overflow-y: scroll; overflow-x: hidden;">
+		<table>
+			<thead id="yack">
+			</thead>
+			<tbody id="yeck">
+			</tbody>
+		</table>
+	</div>
+
+	<div id="tablehold2" class="tab-pane" style="height: 800px; overflow-y: scroll; overflow-x: hidden;">
+		<table>
+			<thead id="yack2">
+			</thead>
+			<tbody id="yeck2">
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</div>
+
+<div class="row" id="accordionmini" style="height: 50px; box-shadow: 0 -2px 1px black;" noclick="y">
+
+<div class="col-xs-9" style="height: 100%; box-shadow: -2px 2px 1px black; z-index: 5;" noclick="y">
+
+<button type="button" class="btn btn-info" id="accordionbutton" noclick="y" style="margin-top: 8px; background-color: CornflowerBlue;">Expand Editor History</button>
+
+</div>
+
+</div>
+
+<div class="row" noclick="y" id="accordion">
+
+<div class="col-xs-9" style="padding-left: 0px; padding-top: 2px; padding-right: 2px;" noclick="y">
+
+<div id="tableholdbackup" style="height: 300px; overflow-y: scroll; overflow-x: hidden;" noclick="y">
+	<table noclick="y">
+		<thead id="yack3" noclick="y">
+			<th style="padding-top: 10px; padding-bottom: 10px;" noclick="y">Mod Time</th>
+			<th style="padding-top: 10px; padding-bottom: 10px;" noclick="y">Summary</th>
+		</thead>
+		<tbody id="yeck3" noclick="y">
+		</tbody>
+	</table>
+</div>
+
+</div>
+
+<div class="col-xs-3" style="height: 300px;  box-shadow: -2px 2px 1px black;" noclick="y">
+<button id="undolast" type="button" class="btn" style="width: 100%;" noclick="y">Undo Last</button>
+<br>
+<br>
+<button id="createcampaign" type="button" class="btn" style="width: 100%;" noclick="y">Create Campaign</button>
+<br>
+<br>
+<button id="createschedule" type="button" class="btn" style="width: 100%;" noclick="y">Create Schedule</button>
+
+</div>
+
+</div>
+
+<div class="row" noclick="y">
+
+<div class="col-xs-12" style="background-color: CornflowerBlue; height: 50px; box-shadow: 0 -2px 1px black;" noclick="y">
+
+</div>
+
+</div>
+
+</div>
+
+<ul id="cream" class="dropdown-menu" style="position: absolute;" noclick="y">
+   	<li id="ed" noclick="y"><a id="edit" href="#" noclick="y">Edit</a></li>
+   	<li id="sa" class="disabled" noclick="y"><a id="save" href="#" noclick="y">Save</a></li>
+   	<li id="cu" class="disabled" noclick="y"><a id="cut" href="#" noclick="y">Cut</a></li>
+   	<li id="co" noclick="y"><a id="copy" href="#" noclick="y">Copy</a></li>
+   	<li id="pa" class="disabled" noclick="y"><a id="paste" href="#" noclick="y">Paste</a></li>
+	<li id="del" noclick="y"><a id="delete" href="#" noclick="y">Delete Row</a></li>	
+</ul>
+
+
+	<script>				
+
+		var currentselection;
+		var csw;
+		var csh;	
+		var PoliTrack;
+		var PoliTrack2;
+		var input;
+		var currentholder;
+
+		function hidden() {
+			$("#tablehold").animate({ "height" : "800px" });
+			$("#tablehold2").animate({ "height" : "800px" });
+			$("#accordion").slideUp();
+			$("#accordionbutton").off();
+			$("#accordionbutton").on("click", function() {
+				shown();
+			});
+			$("#accordionbutton").html("Expand Editor History");			
+		}
+
+		function shown() {
+			$("#tablehold").animate({ "height" : "500px" });
+			$("#tablehold2").animate({ "height" : "500px" });
+			$("#accordion").slideDown();
+			$("#accordionbutton").off();
+			$("#accordionbutton").on("click", function() {
+				hidden();
+			});
+			$("#accordionbutton").html("Collapse Editor History");
+		}
+
+		$("#accordionbutton").on("click", function () {
+			shown();
+		});
+
+		$("#undolast").on("click", function() {
+			$.ajax({
+				url : "undolast.php",
+				dataType : "json"
+			}).always( function(data) {
+				tablecall();
+				tablebackupcall();
+			});
+		});
+
+		$("#createcampaign").on("click", function() {
+			$.ajax({
+				url : "createtable.php",
+				data : {"tabl" : "track"},
+				dataType : "json"
+			}).always( function(data) {
+				tablecall();
+				tablebackupcall();
+			});
+		});
+
+		$("#createschedule").on("click", function() {
+			$.ajax({
+				url : "createtable.php",
+				data : {"tabl" : "sched"},
+				dataType : "json"
+			}).always( function(data) {
+				tablecall();
+				tablebackupcall();
+			});
+		});
+
+		function update() {
+			var col = currentselection.attr('column');	
+			var row = currentselection.attr('polid');
+			var tabl = currentselection.attr('tabl');			
+			$.ajax({
+				url : "updatetable.php",
+				data : { "col" : col, "row" : row, "val" : currentholder, "command" : "UPDATE", "tabl" : tabl },
+				dataType : "json"
+			}).always( function(data) {
+				tablebackupcall();
+				console.log(data);
+				tablecall();
+			});		
+		}
+	
+		function restore() {
+			if (currentholder != null) {
+				currentselection.html(currentholder);
+			}
+			console.log(currentholder);
+			$("#ed").removeClass("disabled");
+			$("#sa").addClass("disabled");
+			$("#cu").addClass("disabled");
+			$("#pa").addClass("disabled");
+		}
+
+		function stopit(event) {
+			event.stopPropagation();
+			event.preventDefault();
+		}
+		
+		var editting = "n";
+		var clipboard;
+
+		function tablebackupcall() {
+			$.ajax({
+				url : "tablebackupcall.php",
+				dataType : "json"
+			}).always( function(data) {
+				Backup = data;
+				var backupbody;
+				for (var z in Backup) {
+					var backuprow = "<tr class='oreo'><td class='oreojr'>" + Backup[z]["submitted"] + "</td><td class='oreojr'>" + Backup[z]["summary"] + "</td></tr>";
+					backupbody += backuprow; 
+				}
+				$("#yeck3").html("");
+				$("#yeck3").append(backupbody);
+				$("td").css({ "padding-top" : "5px", "padding-bottom" : "5px" });
+				$("td").on("click", function() {
+					changeColor(this);
+				});
+			});
+		}
+			
+		tablebackupcall();
+		
+		$('ul.dropdown-menu > li > a').on('click', function (event) {
+			event.stopPropagation();
+			if ($(this).attr('id') == "edit") {
+				if (editting == "n") {
+					editting = "y";
+					$("#ed").addClass("disabled");
+					$("#sa").removeClass("disabled");
+					$("#cu").removeClass("disabled");
+					$("#pa").removeClass("disabled");
+					currentholder = currentselection.html();
+					currentselection.html("<input type='text' id='temp' style='width: " + csw + "px; height: " + csh + "px; border: 0px; text-align: center;' value='" + currentholder + "' onclick='stopit(event)' oncontextmenu='stopit(event)'>");
+				} else {
+					console.log('editting is y, dude');
+				}
+			}
+			if ($(this).attr('id') == "save") {
+				if (!confirm("Update Table?")) {
+					restore();
+					$("#cream").hide();
+					return;
+				}
+				editting = "n";
+				currentholder = $("#temp").val();
+				$("#cream").hide();
+				restore();
+				update();
+			}
+			if ($(this).attr('id') == "copy") {
+				if (editting == "y") {
+					clipboard = $("#temp").val();
+				} else {
+					clipboard = currentselection.html();
+				}		
+			}
+			if ($(this).attr('id') == "cut") {
+				clipboard = $("#temp").val();
+				$("#temp").val("");
+			}
+			if ($(this).attr('id') == "paste") {
+				if (clipboard) {
+					$("#temp").val(clipboard);
+				}
+			}
+			if ($(this).attr('id') == "delete") {
+				if (!confirm("Delete Row?")) {
+					restore();
+					$("#cream").hide();
+					return;
+				}
+				var tabl = currentselection.attr('tabl');
+				var rowid = currentselection.parent().attr('ident');
+				$("#cream").hide();
+				$.ajax({
+					url : "deleterow.php",
+					dataType : "json",
+					data : { "tabl" : tabl, "rowid" : rowid }
+				}).always( function(data) {
+					tablecall();
+					tablebackupcall();
+				});
+			}
+		});
+
+		function tablecall() {
+
+			$.ajax({
+				url : "tablecall.php",
+				dataType : "json"
+			}).always( function(data) {
+				PoliTrack = data;
+				input = new Object;
+				var str;
+				var runner = 0;
+				for (var h in PoliTrack[0]) {
+					if (runner >= 1 && runner <= 9 || runner == 13 || runner == 14 || runner == 16) {
+						str += "<th oncontextmenu='stopit(event)' style='padding-top: 10px; padding-bottom: 10px;'>" + h + "</th>";	
+					}
+					runner++;			
+				}
+				$("#yack").html("");
+				$("#yack").append(str);
+				var str2;
+				for (var i in PoliTrack) {
+					var runner2 = 0;
+					str2 += "<tr class='" + PoliTrack[i]["CampaignID"] + "' ident='" + PoliTrack[i]["ID"] + "'>";
+						for (var j in PoliTrack[i]) {
+							if (runner2 >= 1 && runner2 <= 9 || runner2 == 13 || runner2 == 14 || runner2 == 16) {
+								str2 += "<td column='" + j + "' polid='" + PoliTrack[i]["ID"] + "' ";
+								if (j == "Special_Instructions") {
+									str2 += " leaveout='n' ";
+								}
+								str2 +=	" tabl='track' class='main'>" + PoliTrack[i][j] + "</td>";
+								var a = "a" + i;
+								input[a] = PoliTrack[i]["CampaignID"];
+							}
+							runner2++;
+						}
+					str2 += "</tr>";
+				}
+				console.log(input);
+				getSchedules(input);
+				$("#yeck").html("");
+				$("#yeck").append(str2);
+				$("td").css({ "padding-top" : "5px", "padding-bottom" : "5px" });
+				$("td.main").on("click", function() {
+					var classholder = "tr." + $(this).parent().attr('class');
+					$("td").css({ "background-color" : "transparent" });
+					$("tr").css({ "background" : "transparent" });
+					$(this).css({ "background-color" : "CornflowerBlue" });
+					$(classholder).css({ "background-color" : "#d1dffa" });
+					console.log($(classholder));
+					changeColor(this);	
+				});
+			});
+
+		}
+
+		tablecall();
+
+		function changeColor(f) {
+			if ($(f.parentElement).attr('noclick') != 'y' && $(f).attr('noclick') != 'y') {
+				var classholder = "." + $(f).parent().attr('class');
+				$("td").css({ "background-color" : "transparent" });
+				$("tr").css({ "background" : "transparent" });
+				$(f).css({ "background-color" : "CornflowerBlue" });
+				$(classholder).css({ "background-color" : "#d1dffa" });	
+			}
+			console.log($(f).attr('noclick'));
+		}
+
+		function getSchedules(input) {
+			$.ajax({
+				url : "tablecall2b.php",
+				dataType : "json"
+			}).always( function(data) {
+				var str;
+				PoliTrack2 = data;
+				for (var h in PoliTrack2[4]) {
+					str += "<th oncontextmenu='stopit(event)' style='padding-top: 10px; padding-bottom: 10px;'>" + h + "</th>";				
+				}
+				$("#yack2").html("");	
+				$("#yack2").append(str);
+				var str2;
+				for (var i in PoliTrack2) {
+					str2 += "<tr class='" + PoliTrack2[i]["Campaignid"] + "' ident='" + PoliTrack2[i]["ScheduleID"] + "'>";
+					for (var j in PoliTrack2[i]) {
+						str2 += "<td column='" + j + "' polid='" + PoliTrack2[i]["ScheduleID"] + "' ";
+							if (j == "Start_Time" || j == "Stop_Time") {
+								str2 += " leaveout='n' ";
+							} 
+						str2 += "tabl='sched' class='main2'>" + PoliTrack2[i][j] + "</td>";
+					}
+					str2 += "</tr>";
+				}
+				$("#yeck2").html("");
+				$("#yeck2").append(str2);
+				$("td").css({ "padding-top" : "5px", "padding-bottom" : "5px" });
+				$("td.main2").on("click", function() {
+					changeColor(this);
+				});							
+			});
+		}
+
+		function dropthatmenu(y, w, h) {
+			var x = y.offset().left;
+			var y = y.offset().top;
+			var top = y + h;
+			$("#cream").css({ "top" : top, "left" : x });
+			$("#cream").show();
+		}
+
+		$(window).on("contextmenu", function(event) {
+			event.preventDefault();
+			if ($(event.target).prop("nodeName") != "BODY" && $(event.target).attr('leaveout') == "n") {
+				currentselection = null;
+				currentholder = null;
+				changeColor(event.target);
+				if (!$(event.target).attr('noclick') || !$(event.target.parentElement).attr('noclick')) {
+					dropthatmenu($(event.target), $(event.target).outerWidth(), $(event.target).outerHeight());
+					currentselection = $(event.target);
+				}
+				csh = $(event.target).height();
+				csw = $(event.target).width() - 4;
+			}
+		});
+
+		$(window).on("click", function(event) {
+			if (event.button == 2) {
+				return;
+			}
+			$("#cream").hide();
+			restore();
+			editting = "n";
+		});
+
+	</script>
+	</body>
+</html>
+		
